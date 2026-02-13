@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 require('dotenv').config();
 
-// Connect to MongoDB
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('MongoDB Connected'))
-  .catch(err => console.error('MongoDB connection error:', err));
-
 // Define schemas inline for seeding
 const userSchema = new mongoose.Schema({
   name: String,
@@ -21,6 +16,10 @@ const User = mongoose.model('User', userSchema);
 // Seed function
 const seedDatabase = async () => {
   try {
+    // Connect to MongoDB
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('MongoDB Connected');
+
     // Clear existing users
     await User.deleteMany({});
     console.log('Cleared existing users');
