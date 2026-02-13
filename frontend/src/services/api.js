@@ -9,7 +9,7 @@ const API = axios.create({
 });
 
 // Add token to requests if it exists
-api.interceptors.request.use(
+API.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -23,7 +23,7 @@ api.interceptors.request.use(
 );
 
 // Handle response errors
-api.interceptors.response.use(
+API.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
@@ -36,4 +36,4 @@ api.interceptors.response.use(
   }
 );
 
-export default api;
+export default API;
