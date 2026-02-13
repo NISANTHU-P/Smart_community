@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Create axios instance with base configuration
-const API = axios.create({
+const api = axios.create({
   baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json',
@@ -9,7 +9,7 @@ const API = axios.create({
 });
 
 // Add token to requests if it exists
-API.interceptors.request.use(
+api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -23,7 +23,7 @@ API.interceptors.request.use(
 );
 
 // Handle response errors
-API.interceptors.response.use(
+api.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
@@ -36,4 +36,4 @@ API.interceptors.response.use(
   }
 );
 
-export default API;
+export default api;
